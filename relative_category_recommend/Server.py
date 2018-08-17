@@ -25,17 +25,42 @@ def log_process(paras, tag):
     # tag =1 文字 返回与文字匹配的商品
     # tag =2 数字 返回数字同类的商品
     print(paras)
+
     if tag == 1:
-        if paras in cat_items.keys():
-            return "&&".join(cat_items[paras])
+        paras_list = []
+        for i, item in enumerate(relative_category):
+            if paras in item:
+                paras_list = relative_category[i]
+        result = []
+        for item in paras_list:
+            if item in cat_items.keys():
+                result.extend(cat_items[item])
+
+        if len(result) != 0:
+            return "&".join(result)
+
         else:
             return "wrong paras"
 
     elif tag == 2:
+        paras_ = ""
         for k, v in cat_items.items():
             if paras in v:
-                return "&&".join(v)
-        return "wrong paras"
+                paras_ = k
+
+        paras_list = []
+        for i, item in enumerate(relative_category):
+            if paras_ in item:
+                paras_list = relative_category[i]
+        result = []
+        for item in paras_list:
+            if item in cat_items.keys():
+                result.extend(cat_items[item])
+
+        if len(result) != 0:
+            return "&".join(result)
+        else:
+            return "wrong paras"
 
     else:
         return "wrong"
