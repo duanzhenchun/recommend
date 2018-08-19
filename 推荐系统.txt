@@ -87,7 +87,9 @@
     coding
     real time ranking
         实时打分
-            日志数据--> redis --> 数据处理 --> 结果 redis --> server --> 推荐列表
+            制定规则
+            搭建软件环境 【Redis Python】
+            设计数据流向链条    【日志数据--> redis --> 数据处理 --> 结果 redis --> server --> 推荐列表】
         实时排序
 
 
