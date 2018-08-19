@@ -31,7 +31,8 @@ def log_process(paras, tag):
     elif tag == 2:
         for k, v in cat_items.items():
             if paras in v:
-                return "&&".join(v)
+                # return paras + "#spacial#" + "&&".join(v)
+                return v[0] + "&&" + "0000000" + "#spacial#" + "&&".join(v[1:])
         return "wrong paras"
 
     else:
