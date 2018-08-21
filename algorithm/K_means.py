@@ -21,5 +21,10 @@ print(kmeans.cluster_centers_)
 
 """
 
-df = pd.read_csv("./ml-100k/u1.base", sep="\t", names=["user", "item", "rate", "timestamp"])
-print(df)
+df = pd.read_csv("./ml-100k/u1.base", sep="\t", names=["user id", "item id", "rate", "timestamp"])
+x = df.values
+y = df.iloc[:, -2].values
+print(y)
+kmeans = KMeans(n_clusters=5, random_state=0).fit(x)
+print(kmeans.predict([[1, 1, 5, 874965758]]))
+print(kmeans.cluster_centers_)
