@@ -5,18 +5,19 @@ class ItemBasedCF(object):
         self.train_file = train_file
         # 读取数据
         self.readData()
+        self.ItemSimilarity()
 
     def readData(self):
         # 读取数据生成 user-item 的评分表
-        self.train = dict()
+        self.user_item = dict()
         with open(self.train_file, "r", encoding="utf-8") as f:
             for line in f:
                 # 获得用户、商品、评分数据， 丢弃无关的时间戳数据
                 user, item, score, _ = line.strip().split("\t")
                 # user-item 评分矩阵
-                self.train.setdefault(user, {})
+                self.user_item.setdefault(user, {})
                 # 分数赋值
-                self.train[user][item] = int(score)
+                self.user_item[user][item] = int(score)
 
     def ItemSimilarity(self):
         # 建立物品-物品共现矩阵
@@ -24,10 +25,10 @@ class ItemBasedCF(object):
         N = dict()            # 物品被多少个不同用户购买
 
         # 遍历训练数据，获得用户有过行为的物品
-        for user, items in self.train.items():
+        for user, items in self.user_item.items():
             # 遍历该用户每件物品项
             for i in items.keys():
-                # 该物品被用户购买计数加1
+                # 统计该物品被用户购买计数加1
                 N.setdefault(i, 0)
                 N[i] += 1
                 # 物品-物品共现矩阵数据加1
@@ -49,7 +50,7 @@ class ItemBasedCF(object):
 
         return self.W
 
-    def Recommend(self, user, K=3, N=10):
+    def Recommend(self, user, K=1, N=1):
         # 用户对物品的偏好值
         rank = dict()
         # 用户产生过行为的物品和评分
@@ -66,5 +67,4 @@ class ItemBasedCF(object):
 
 if __name__ == "__main__":
     icf = ItemBasedCF("./ml-100k/u.data")
-    icf.ItemSimilarity()
     print(icf.Recommend("3"))
