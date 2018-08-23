@@ -65,6 +65,6 @@ class ItemBasedCF(object):
         return list(sorted(rank.items(), key=lambda x: x[1], reverse=True)[0:N])
 
 if __name__ == "__main__":
-    cf = ItemBasedCF("./ml-100k/u.data")
-    cf.ItemSimilarity()
-    print(cf.Recommend("3"))
+    icf = ItemBasedCF("./ml-100k/u.data")
+    icf.ItemSimilarity()
+    print(icf.Recommend("3"))
