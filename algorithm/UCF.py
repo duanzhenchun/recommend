@@ -7,7 +7,6 @@ class UserBasedCF(object):
         self.train_file = train_file
         self.readData()
         self.UserSimilarity_cosin()
-        # self.UserSimilarity_euclidean()
 
     def readData(self):
         self.user_item = dict()
@@ -45,20 +44,6 @@ class UserBasedCF(object):
                 self.W[u][v] = cuv / math.sqrt(len(self.user_item[u]) * len(self.user_item[v]))
 
         return self.W
-
-    # def UserSimilarity_euclidean(self):
-    #     self.W = dict()
-    #     for u in self.user_item.keys():
-    #         self.W.setdefault(u, {})
-    #         for v in self.user_item.keys():
-    #             self.W[u].setdefault(v, 0)
-    #             sim = {}
-    #             for item in self.user_item[u]:
-    #                 if item in self.user_item[v]:
-    #                     sim[item] =1
-    #             self.W[u][v] = 1/(1+math.sqrt(sum([pow(self.user_item[u][item] - self.user_item[v][item], 2) for item in sim])))
-    #     print(self.W["1"]["2"])
-    #     return self.W
 
     def Recommend(self, user, K=2, N=5):
         rank = dict()
