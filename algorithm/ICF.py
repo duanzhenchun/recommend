@@ -5,13 +5,14 @@ class ItemBasedCF(object):
         self.train_file = train_file
         # 读取数据
         self.readData()
-        self.ItemSimilarity()
+        self.ItemSimilarity_cosin()
 
     def readData(self):
         # 读取数据生成 user-item 的评分表
         self.user_item = dict()
         with open(self.train_file, "r", encoding="utf-8") as f:
             for line in f:
+                # print(line.strip().split("\t"))
                 # 获得用户、商品、评分数据， 丢弃无关的时间戳数据
                 user, item, score, _ = line.strip().split("\t")
                 # user-item 评分矩阵
@@ -19,7 +20,7 @@ class ItemBasedCF(object):
                 # 分数赋值
                 self.user_item[user][item] = int(score)
 
-    def ItemSimilarity(self):
+    def ItemSimilarity_cosin(self):
         # 建立物品-物品共现矩阵
         C = dict()            # 物品-物品共现矩阵
         N = dict()            # 物品被多少个不同用户购买
@@ -50,11 +51,12 @@ class ItemBasedCF(object):
 
         return self.W
 
-    def Recommend(self, user, K=1, N=1):
+
+    def Recommend(self, user, K=3, N=5):
         # 用户对物品的偏好值
         rank = dict()
         # 用户产生过行为的物品和评分
-        action_item = self.train[user]
+        action_item = self.user_item[user]
 
         # 找到用户产生过行为的物品，分别找到物品按相似度从大到小进行排序，取前K个相似度最大的物品推荐
         for item, score in action_item.items():
@@ -66,5 +68,5 @@ class ItemBasedCF(object):
         return list(sorted(rank.items(), key=lambda x: x[1], reverse=True)[0:N])
 
 if __name__ == "__main__":
-    icf = ItemBasedCF("./ml-100k/u.data")
+    icf = ItemBasedCF("./ml-100k/u1.base")
     print(icf.Recommend("3"))
