@@ -64,8 +64,6 @@ def scanD(D, Ck, minSupport):
         if support >= minSupport:
             retList.insert(0, k)
         supportData[k] = support  # 保存了过滤前后的项集及其支持度
-
-
     return retList, supportData
 
 
@@ -83,9 +81,6 @@ def aproori(dataSet, miniSupport = 0.5):
     for ll in L1:
         print(ll)
     print(supportData)
-
-
-
 
 
 
