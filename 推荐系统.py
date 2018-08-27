@@ -129,7 +129,7 @@
 
 
 
-            FPGROWTH:Apriori的加强版
+            FPGROWTH:Apriori的加强版    https://www.cnblogs.com/zhengxingpeng/p/6679280.html
               【只需要对数据库扫描两次】
 
 
